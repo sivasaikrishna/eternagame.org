@@ -1,64 +1,74 @@
 <template>
-  <v-container>
-    <v-row>
-      <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-        <div>
-          <v-btn
-            text
-            icon
-            :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-            @click="commands.heading({ level: 1 })"
-          >
-            <b> H1 </b>
-          </v-btn>
-          <v-btn text icon :class="{ 'is-active': isActive.bold() }" @click="commands.bold">
-            <v-icon>mdi-format-bold</v-icon>
-          </v-btn>
-
-          <v-btn
-            text
-            icon
-            :class="{ 'is-active': isActive.underline() }"
-            @click="commands.underline"
-          >
-            <v-icon>mdi-format-underline</v-icon>
-          </v-btn>
-        </div>
-      </editor-menu-bar>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <editor-content class="editor-box" :editor="editor" />
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <!-- Use the component in the right place of the template -->
+    <tiptap-vuetify v-model="content" :extensions="extensions" />
+  </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue, Mixins } from 'vue-property-decorator';
   // @ts-ignore
-  import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-  // @ts-ignore
-  import { Heading, Bold, Underline, Image } from 'tiptap-extensions';
-
-  Component.registerHooks(['beforeDestroy']);
+  import {
+    TiptapVuetify,
+    Heading,
+    Bold,
+    Italic,
+    Strike,
+    Underline,
+    Code,
+    Paragraph,
+    BulletList,
+    OrderedList,
+    ListItem,
+    Link,
+    Blockquote,
+    HardBreak,
+    HorizontalRule,
+    History,
+  } from 'tiptap-vuetify';
 
   @Component({
-    components: { Editor },
+    components: { TiptapVuetify },
   })
   export default class EditField extends Vue {
-    private editor = new Editor({
-      content: `Type here...
-         `,
-      extensions: [new Heading({ levels: [1, 2, 3] }), new Bold(), new Underline(), new Image()],
-    });
+    private extensions = [
+      History,
+      Blockquote,
+      Link,
+      Underline,
+      Strike,
+      Italic,
+      ListItem,
+      BulletList,
+      OrderedList,
+      [
+        Heading,
+        {
+          options: {
+            levels: [1, 2, 3],
+          },
+        },
+      ],
+      Bold,
+      Code,
+      HorizontalRule,
+      Paragraph,
+      HardBreak,
+    ];
 
-    private beforeDestroy() {
-      this.editor.destroy();
-    }
+    // starting editor's content
+    private content = `
+      <h1>Yay Headlines!</h1>
+      <p>All these <strong>cool tags</strong> are working now.</p>
+    `;
   }
 </script>
 <style lang="scss" scoped>
+  // don't forget to import CSS styles
+  @import '~tiptap-vuetify/dist/main.css';
+  // Vuetify's CSS styles
+  @import '~vuetify/dist/vuetify.min.css';
+
   .editor-box > * {
     border-color: grey;
     border-style: solid;
@@ -71,6 +81,6 @@
     border-width: 1px;
   }
   /* *:focus {
-    outline: none;
-}  */
+      outline: none;
+  }  */
 </style>

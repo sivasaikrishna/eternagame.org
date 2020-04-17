@@ -1,56 +1,6 @@
 <template>
   <EternaPage v-if="player" title="Player Profile">
-    <div class="page-content">
-      <EditField />
-
-      <div class="d-flex">
-        <img
-          class="d-block d-sm-none rounded-circle player-image"
-          :src="picture"
-          alt="player-image"
-        />
-        <img
-          class="d-none d-sm-block rounded-circle player-image-large"
-          :src="picture"
-          alt="player-image"
-        />
-        <div class="player-details">
-          <div class="d-flex justify-content-between">
-            <h1 class="player-name">{{ playerName }}</h1>
-            <div class="d-sm-flex">
-              <div class="order-sm-2"><p>--Message---</p></div>
-              <div class="order-sm-1"><p>---Following---</p></div>
-            </div>
-          </div>
-          <div class="d-none d-sm-block">
-            <div class="d-flex justify-content-between">
-              <p class="player-rank">Global Rank: #{{ playerRank }}</p>
-              <p>--------icons-----------------</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="d-block d-sm-none">
-        <div class="d-flex flex-wrap justify-content-between">
-          <p class="player-rank">Global Rank: #{{ playerRank }}</p>
-          <p>--------icons-----------------</p>
-        </div>
-      </div>
-      <div></div>
-
-      <hr class="top-border" />
-
-      <div class="d-flex">
-        <div>
-          <h4 class="about-me"></h4>
-        </div>
-        <button class="menubar__button" :class="{ 'is-active': true }" @click="commands">
-          <icon name="bold" />
-        </button>
-
-        <p>Featured Achievement</p>
-      </div>
-    </div>
+    <EditField />
 
     <template #sidebar="{ isInSidebar }">
       <DropdownSidebarPanel
