@@ -34,6 +34,7 @@
 
     <h1
       :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }"
+      class="experiencedHeaders"
     >{{ $t('player-home:section1') }}</h1>
     <Carousel>
       <swiper-slide v-for="(item, index) in pageData.section1" :key="index">
@@ -43,6 +44,7 @@
 
     <h1
       :style="{ fontSize: '36px', fontWeight: 'bold', marginTop: '61px' }"
+      class="experiencedHeaders"
     >{{ $t('player-home:section2') }}</h1>
     <Carousel>
       <swiper-slide v-for="(item, index) in pageData.section2" :key="index">
@@ -161,7 +163,12 @@ export default class ExperiencedPlayerView extends Mixins(
     padding-top: 322px;
   }
   padding: 0;
-  height: 400px;  
+  height: 400px;
   width: 100%;
+}
+@include media-breakpoint-down(sm) {
+  .experiencedHeaders {
+    text-align: center;
+  }
 }
 </style>
